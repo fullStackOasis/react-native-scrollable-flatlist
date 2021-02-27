@@ -28,7 +28,14 @@ const App = () => {
         setTimeout(function() {
             setCount(count+1);
             // id has to be a string.
-            DATA.push({ id: "" + count, title : 'Item #' + count });
+            if (count % 2 == 0) {
+                // if even, use unshift to add to top of list
+                DATA.unshift({ id: "" + count, title : 'Item #' + count });
+            } else {
+                // if even, use unshift to push to bottom of list
+                DATA.push({ id: "" + count, title : 'Item #' + count });
+            }
+            console.log(DATA);
         }, INCREMENT);
     }
   }
@@ -60,7 +67,6 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   fl : {
-    flex : 1
   },
   item: {
     backgroundColor: '#f9c2ff',
