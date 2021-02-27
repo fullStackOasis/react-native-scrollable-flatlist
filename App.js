@@ -1,56 +1,15 @@
 /**
  * Example from https://reactnative.dev/docs/flatlist
  */
-import React from 'react';
+import React, { useState } from 'react';
+
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d74',
-    title: 'Fourth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d75',
-    title: 'Fifth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d76',
-    title: 'Sixth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d77',
-    title: 'Seventh Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d78',
-    title: 'Eighth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d79',
-    title: 'Ninth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d70',
-    title: 'Tenth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d80',
-    title: 'Eleventh Item',
-  },
-];
+const DATA = [];
 
+const MAX_ITEMS = 100;
+
+const INCREMENT = 1000; // in ms
 
 const Item = ({ title }) => (
   <View style={styles.item}>
@@ -59,6 +18,26 @@ const Item = ({ title }) => (
 );
 
 const App = () => {
+
+  /**
+   * Every INCREMENT, add a new item.
+   * Stop once you get to MAX_ITEMS
+   */
+  const ticker = () => {
+    if (count < MAX_ITEMS) {
+        setTimeout(function() {
+            setCount(count+1);
+            // id has to be a string.
+            DATA.push({ id: "" + count, title : 'Item #' + count });
+        }, INCREMENT);
+    }
+  }
+
+  const [count, setCount] = useState(0);
+
+  // Start the ticker going.
+  ticker();
+
   const renderItem = ({ item }) => (
     <Item title={item.title} />
   );
